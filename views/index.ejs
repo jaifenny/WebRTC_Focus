@@ -1,0 +1,194 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+  <link rel="shortcut icon" href="#"/>
+  <title>WebTutsPlus WebCon</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600&family=Josefin+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery3.2.1/jquery.min.js"></script>-->
+<script src="https://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<link href="https://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet"/>
+  <!-- <link rel="stylesheet" href="/css/main.css" /> -->
+</head>
+
+<body class="h-100">
+  <div class="h-100" id="video_display">
+    <div id ="video_container" class="align-items-center" style="margin-top: 10%;">
+      <div class="local_div" id="div1" style="">
+	<video id="localVideo" class="" autoplay muted playsinline></video>			
+      </div>
+      <div class="remote_div" id="div2">
+        <video id="remoteVideo" class="" autoplay playsinline></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import SocketIO for signalling -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- Import WebRTC adapter for compatibility with all the browsers  -->
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  
+  <!-- Import TURN config -->
+  <script src="js\config.js"></script>
+
+  <!-- Import script containing WebRTC related functions -->
+  <script src="js\main.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+
+<!--0423-->
+<div class="dialog2" id="dialog2">
+         please press the picture
+         <input  type="button" onclick="hideDialoga()" class="zoomImage"  >
+         
+         <input  type="button" onclick="hideDialogb()" class="zoomImage2"  >
+         
+         <input  type="button" onclick="hideDialogc()" class="zoomImage3"  >
+
+      </div>
+<!--0423-->
+<!--0711-->
+<button id="dialog3_2" onclick = "showDialog3_2()">Click_focus</button>
+
+<div class="dialog2_2" id="dialog2_2">
+         please reply in time
+         <!--input  type="button" onclick="in_time()" class="zoomImage"  -->
+ <button onclick="in_time()"  >HERE</button>
+
+</div>
+<button id="dialog4" onclick = "showDialog4()">State</button>
+<!--0711-->
+<!--0711-->
+<div style = "width: 400px; background-color: white;">
+  <canvas id = "myChart" width = "1" height = "1"></canvas>
+</div>
+<!--0711!-->
+<!--0723-->
+<div style = "width: 400px; background-color: white;">
+  <canvas id = "myChart2" width = "1" height = "1"></canvas>
+  <button id='link_i1' onclick = "lately()">Save as pdf</button>
+</div>
+<!--0723!-->
+
+<!--0508-->
+  <div id="timers" style="width:300px;
+  height:100px;
+  color:white;
+  text-align:center;
+  line-height:50px;
+  margin:auto;
+  font-size:150%;
+  font-weight:bold;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  padding:10px;"></div>
+<!--0508!-->
+<!--0514--> <!--0620-->
+<label id="enter1">Enter Message</label><br/>
+<textarea id="yourMessage"></textarea>
+<!--button id="send">send</button-->    
+<button id="enter2" onclick = "entermessage()">send</button>
+<pre id="messages"></pre>
+<!--0514!-->
+<!--0730!-->
+<button id="csv" onclick = "downloadcsv()">CSV</button>
+<!--0730!-->
+<!--0717-->
+<button id="send_q" onclick = "sendQus()">sendQus</button>
+<button id="l_ability" onclick = "learning()">learning_ability</button><!--0723-->
+<!--0812-->
+<button id="timerid" onclick="Check_Time()">Timer</button>
+<button id="timerstop" onclick="Stop_Time()">Stop</button>
+<span id="Check_Txt" style="color:rgb(242, 242, 247)">Time: <span id="Check_i">0h 0m 0s</span></span>
+<br></br> 
+<!--0809-->
+<iframe style="width:560px; height:315px;" src="" id="emb" frameborder="0" allowfullscreen></iframe>
+<div id="video1" class="dialog_v">
+      <textarea id="story" name="story" rows="2" cols="60"></textarea>
+      <button onclick="videoFunction()">Video</button>
+</div>
+<!--0809-->
+<div class="dialog4_1" id="dialog4_1">
+         please answer in time
+	<pre id="dia4"></pre>
+	<button onclick="hide_a()"  >A</button>
+	<button onclick="hide_b()"  >B</button>
+	<button onclick="hide_c()"  >C</button>
+</div>
+<br></br><br></br>
+<!--<form action="#" method="post" id="qusID">-->
+<!--0813-->
+<form id="qusID">
+  <fieldset>
+    <legend>question</legend>
+    <ol>
+      <li>
+        <p>Send Time <input type="text" id="videoHour0"> : <input type="text" id="videoMinute0"></p>
+        <input type="checkbox" id="cbox0" value="checkbox1">
+        <textarea id="mytext0" rows="5" cols="100"></textarea>
+        <input type="radio" name="ans1" id="r0" value="A">A
+        <input type="radio" name="ans1" id="r1" value="B">B
+        <input type="radio" name="ans1" id="r2" value="C">C
+        <button type="button" class="clockBtn" onclick="timeFunction()">Check</button>
+        <p>hour: </p><p id="hour0"></p>
+        <p>minute: </p><p id="minute0"></p>
+      </li>
+      <li>
+        <p>Send Time <input type="text" id="videoHour1"> : <input type="text" id="videoMinute1"></p>
+        <input type="checkbox" id="cbox1" value="checkbox2">
+        <textarea id="mytext1" rows="5" cols="100"></textarea>
+        <input type="radio" name="ans2" id="r3" value="A">A
+        <input type="radio" name="ans2" id="r4" value="B">B
+        <input type="radio" name="ans2" id="r5" value="C">C
+        <p>hour: </p><p id="hour1"></p>
+        <p>minute: </p><p id="minute1"></p>
+      </li>
+      <li>
+        <p>Send Time <input type="text" id="videoHour2"> : <input type="text" id="videoMinute2"></p>
+        <input type="checkbox" id="cbox2" value="checkbox3">
+        <textarea id="mytext2" rows="5" cols="100"></textarea>
+        <input type="radio" name="ans3" id="r6" value="A">A
+        <input type="radio" name="ans3" id="r7" value="B">B
+        <input type="radio" name="ans3" id="r8" value="C">C
+        <p>hour: </p><p id="hour2"></p>
+        <p>minute: </p><p id="minute2"></p>
+      </li>
+      <li>
+        <p>Send Time <input type="text" id="videoHour3"> : <input type="text" id="videoMinute3"></p>
+        <input type="checkbox" id="cbox3" value="checkbox4">
+        <textarea id="mytext3" rows="5" cols="100"></textarea>
+        <input type="radio" name="ans4" id="r9" value="A">A
+        <input type="radio" name="ans4" id="r10" value="B">B
+        <input type="radio" name="ans4" id="r11" value="C">C
+        <p>hour: </p><p id="hour3"></p>
+        <p>minute: </p><p id="minute3"></p>
+      </li>
+      <li>
+        <p>Send Time <input type="text" id="videoHour4"> : <input type="text" id="videoMinute4"></p>
+        <input type="checkbox" id="cbox4" value="checkbox5">
+        <textarea id="mytext4" rows="5" cols="100"></textarea>
+        <input type="radio" name="ans5" id="r12" value="A">A
+        <input type="radio" name="ans5" id="r13" value="B">B
+        <input type="radio" name="ans5" id="r14" value="C">C
+        <p>hour: </p><p id="hour4"></p>
+        <p>minute: </p><p id="minute4"></p>
+      </li>
+    </ol>
+  </field>
+</form>
+<!--0813!-->
+<script type="text/javascript">
+$('.clockpicker').clockpicker();
+</script>
+
+ </body>
+
+</html>
+
